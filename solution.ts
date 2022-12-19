@@ -1,7 +1,15 @@
-class WordSegmentation {
-    dictionary: Set<string>;
+canSegmentString(input: string): boolean {
+        const memo: boolean[] = new Array(input.length + 1).fill(false);
+        memo[0] = true;
 
-    constructor(dictionary: string[]) {
-        this.dictionary = new Set(dictionary);
+        for (let i = 1; i <= input.length; i++) {
+            for (let j = 0; j < i; j++) {
+                if (memo[j] && this.dictionary.has(input.substring(j, i))) {
+                    memo[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return memo[input.length];
     }
-}
